@@ -3,6 +3,8 @@
 
 #include "MedivailGameMode.h"
 #include "MedivailPlayerState.h"
+#include "../Board/BoardSlotMarker.h"
+#include "Kismet/GameplayStatics.h"
 
 AMedivailGameMode::AMedivailGameMode() {
 	GameStateClass = AMedivailGameState::StaticClass();
@@ -54,4 +56,22 @@ void AMedivailGameMode::ResolveCombat() {
 			MedivailGS->HandleDeath(*Slot);
 		}
 	}
+}
+
+void AMedivailGameMode::BuildSlotLookup() {
+	TArray<AActor*> FoundMarkers;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABoardSlotMarker::StaticClass(), FoundMarkers);
+
+	for (int32 i = 0; i < FoundMarkers.Num(); i++) {
+		ABoardSlotMarker* Marker = Cast<ABoardSlotMarker>(FoundMarkers[i]);
+		if (Marker) {
+			SlotPosition.Add(MakeSlotKey(Marker->bIsPlayerSide, Marker->Row, Marker->Lane), Marker->GetActorLocation());
+		}
+	}
+	if (SlotPosition.Num() != 16) UE_LOG(LogTemp, Warning, TEXT("Slot Positions != 16"));
+	
+}
+
+int32 AMedivailGameMode::MakeSlotKey(bool bIsPlayerSide, int32 Row, int32 Lane) {
+	return (bIsPlayerSide ? 0 : 1) * 100 + (Row * 10) + Lane;
 }

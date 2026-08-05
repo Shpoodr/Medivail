@@ -28,7 +28,14 @@ public:
 
 protected:
 	UPROPERTY()
+	TMap<int32, FVector> SlotPosition;
+
+	UPROPERTY()
 	TObjectPtr<AMedivailGameState> MedivailGS;
 	virtual void BeginPlay() override;
 	void ResolveCombat();
+
+	void BuildSlotLookup();
+	int32 MakeSlotKey(bool bIsPlayerSide, int32 Row, int32 Lane);
 };
+
