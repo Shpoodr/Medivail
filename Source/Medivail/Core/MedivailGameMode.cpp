@@ -9,21 +9,26 @@
 AMedivailGameMode::AMedivailGameMode() {
 	GameStateClass = AMedivailGameState::StaticClass();
 	PlayerStateClass = AMedivailPlayerState::StaticClass();
-	MedivailGS = GetGameState<AMedivailGameState>();
 }
 	
 void AMedivailGameMode::BeginPlay() {
 	Super::BeginPlay();
 
+	MedivailGS = GetGameState<AMedivailGameState>();
+
 	UE_LOG(LogTemp, Warning, TEXT("MediVailGameMode BeginPlay"));
 	UE_LOG(LogTemp, Warning, TEXT("GameState is: %s"), *GetWorld()->GetGameState()->GetClass()->GetName());
-	MedivailGS->InitializeBoard();
 
+	if (ensure(MedivailGS)) {
+		MedivailGS->InitializeBoard();
+	}
+	
 	MedivailGS->PlacementHandling(TestCreature1, true, 1, 1);
 	MedivailGS->PlacementHandling(TestCreature2, false, 1, 1);
 	MedivailGS->PlacementHandling(TestCreature2, false, 5, 7);
 
-	MedivailGS->LogDump();
+	//MedivailGS->LogDump();
+	BuildSlotLookup();
 }
 
 void AMedivailGameMode::ResolveCombat() {
@@ -61,17 +66,25 @@ void AMedivailGameMode::ResolveCombat() {
 void AMedivailGameMode::BuildSlotLookup() {
 	TArray<AActor*> FoundMarkers;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABoardSlotMarker::StaticClass(), FoundMarkers);
-
 	for (int32 i = 0; i < FoundMarkers.Num(); i++) {
 		ABoardSlotMarker* Marker = Cast<ABoardSlotMarker>(FoundMarkers[i]);
 		if (Marker) {
 			SlotPosition.Add(MakeSlotKey(Marker->bIsPlayerSide, Marker->Row, Marker->Lane), Marker->GetActorLocation());
 		}
 	}
-	if (SlotPosition.Num() != 16) UE_LOG(LogTemp, Warning, TEXT("Slot Positions != 16"));
-	
+	UE_LOG(LogTemp, Warning, TEXT("Found %d markers"), FoundMarkers.Num());
+
+	for (const TPair<int32, FVector>& Pair : SlotPosition) {
+		UE_LOG(LogTemp, Warning, TEXT("Slot Key %d at %s"), Pair.Key, *Pair.Value.ToString());
+	}
+
+	if (SlotPosition.Num() != 16) {
+		UE_LOG(LogTemp, Warning, TEXT("Slot Positions != 16"));
+	}
 }
 
 int32 AMedivailGameMode::MakeSlotKey(bool bIsPlayerSide, int32 Row, int32 Lane) {
-	return (bIsPlayerSide ? 0 : 1) * 100 + (Row * 10) + Lane;
+	int32 Key = (bIsPlayerSide ? 0 : 1) * 100 + (Row * 10) + Lane;
+	UE_LOG(LogTemp, Warning, TEXT("Key Value : %d"), Key);
+	return Key;
 }

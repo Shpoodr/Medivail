@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "../Creatures/CreatureDataAsset.h"
+#include "../Creatures/CreatureVisual.h"
 #include "MedivailGameState.h"
 #include "MedivailGameMode.generated.h"//must be bottom include
 
@@ -37,5 +38,11 @@ protected:
 
 	void BuildSlotLookup();
 	int32 MakeSlotKey(bool bIsPlayerSide, int32 Row, int32 Lane);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Visuals")
+	TSubclassOf<ACreatureVisual> CreatureVisualClass;
+
+	UPROPERTY()
+	TMap<int32, TObjectPtr<ACreatureVisual>> SpawnedVisuals;
 };
 

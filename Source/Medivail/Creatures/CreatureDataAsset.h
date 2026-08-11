@@ -23,5 +23,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Creature")
 	int32 BaseHealth = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Creature")
+	TObjectPtr<UTexture2D> CardArt;
 	
 };
