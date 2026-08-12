@@ -1,8 +1,6 @@
 
-
-#include "CreatureDataAsset.h"
 #include "CreatureVisual.h"
-
+#include "CreatureDataAsset.h"
 
 // Sets default values
 ACreatureVisual::ACreatureVisual()
@@ -33,7 +31,7 @@ void ACreatureVisual::Tick(float DeltaTime)
 
 }
 
-void InitializeVisual(UCreatureDataAsset* InCreature, int32 Row, int32 Lane) {
+void ACreatureVisual::InitializeVisual(UCreatureDataAsset* InCreature, int32 InRow, int32 InLane, bool bIsPlayerSide) {
 
 }
 

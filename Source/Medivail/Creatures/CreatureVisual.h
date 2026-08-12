@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "CreatureVisual.generated.h"
 
-class UCreatureaDataAsset;
+class UCreatureDataAsset;
 class UStaticMeshComponent;
 
 UCLASS()
