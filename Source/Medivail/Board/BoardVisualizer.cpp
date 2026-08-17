@@ -2,6 +2,7 @@
 
 #include "BoardVisualizer.h"
 #include "kismet/GameplayStatics.h"
+#include "../Core/MedivailGameState.h"
 #include "BoardSlotMarker.h"
 
 // Sets default values
@@ -16,6 +17,16 @@ ABoardVisualizer::ABoardVisualizer()
 void ABoardVisualizer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BuildSlotLookup();
+
+	AMedivailGameState* GS = GetWorld()->GetGameState<AMedivailGameState>();
+
+	if (ensure(GS)) {
+		GS->OnSlotOccupied.AddDynamic(this, &ABoardVisualizer::HandleSlotOccupied);
+		GS->OnSlotCleared.AddDynamic(this, &ABoardVisualizer::HandleSlotCleared);
+	}
+
 	
 }
 

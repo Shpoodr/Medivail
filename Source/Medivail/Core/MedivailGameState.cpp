@@ -46,6 +46,7 @@ bool AMedivailGameState::PlacementHandling(UCreatureDataAsset* Creature, bool bP
 		if (Slot->IsEmpty()) {
 			Slot->Occupant = Creature;
 			Slot->CurrentHealth = Creature->BaseHealth;
+			OnSlotOccupied.Broadcast(bPlayerSide, Row, Lane);
 			UE_LOG(LogTemp, Warning, TEXT("CREATURE PLACED"));
 			return true;
 		}
@@ -95,6 +96,7 @@ bool AMedivailGameState::HandleAttack(FBoardSlot& Slot, int32 AttackDmg) {
 void AMedivailGameState::HandleDeath(FBoardSlot& Slot) {
 	Slot.CurrentHealth = 0;
 	Slot.Occupant = nullptr;
+	OnSlotCleared.Broadcast(Slot.bIsAPlayerSide, Slot.Row, Slot.Lane);
 }
 
 FBoardSlot* AMedivailGameState::FindTarget(FBoardSlot& Attacker) {
