@@ -46,10 +46,4 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
-	UFUNCTION()
-	void HandleSlotOccupied(bool bIsPlayerSide, int32 Row, int32 Lane);
-	
-	UFUNCTION()
-	void HandleSlotCleared(bool bIsPlayerSide, int32 Row, int32 Lane);
 };
