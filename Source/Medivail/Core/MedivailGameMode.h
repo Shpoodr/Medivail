@@ -14,8 +14,6 @@ class ABoardVisualizer;
 //class AMedivailGameState;
 class UCreatureDataAsset;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotOccupied, bool, bIsPlayerSide, int32, Row, int32, Lane);
-
 UCLASS()
 class MEDIVAIL_API AMedivailGameMode : public AGameModeBase
 {

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "../Core/MedivailGameState.h"
 #include "BoardVisualizer.generated.h"
 
 class ACreatureVisual;
@@ -32,6 +33,9 @@ protected:
 
 	UPROPERTY()
 	TMap<int32, TObjectPtr<ACreatureVisual>> SpawnedVisuals;
+
+	UPROPERTY()
+	TObjectPtr<AMedivailGameState> GS;
 
 public:	
 	// Called every frame

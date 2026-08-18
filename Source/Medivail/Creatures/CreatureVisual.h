@@ -30,7 +30,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Creature")
 	TObjectPtr<UCreatureDataAsset> CreatureData;
 
-	void InitializeVisual(UCreatureDataAsset* InCreature, int32 InLane, int32 InRow, bool bIsPlayerSide);
+	void InitializeVisual(UCreatureDataAsset* InCreature, int32 InLane, int32 InRow, bool bPlayerSide);
 
 protected:
 	// Called when the game starts or when spawned
