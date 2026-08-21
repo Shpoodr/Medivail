@@ -35,3 +35,10 @@ struct FBoardRow{ //Row 0 = Front Row 1 = Back
 	UPROPERTY(BlueprintReadOnly, Category = "Board")
 	TArray<FBoardSlot> Slots;
 };
+
+UENUM(BlueprintType)
+enum class ETurnPhase : uint8 {
+	Placement,
+	Resolution,
+	CleanUp
+};

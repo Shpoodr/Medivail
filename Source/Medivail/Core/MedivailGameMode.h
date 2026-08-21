@@ -28,6 +28,8 @@ class MEDIVAIL_API AMedivailGameMode : public AGameModeBase
 
 public:
 	AMedivailGameMode();
+	UFUNCTION(Exec)
+	void DebugAdvancePhase();
 
 protected:
 	UPROPERTY()
@@ -38,6 +40,8 @@ protected:
 
 	virtual void BeginPlay() override;
 	void ResolveCombat();
+
+	void AdvancePhase();
 
 };
 

@@ -64,3 +64,31 @@ void AMedivailGameMode::ResolveCombat() {
 		}
 	}
 }
+
+void AMedivailGameMode::AdvancePhase() {
+	switch (MedivailGS->CurrentPhase) {
+	case ETurnPhase::Placement:
+		UE_LOG(LogTemp, Warning, TEXT("Phase was: %s"), *UEnum::GetValueAsString(MedivailGS->CurrentPhase));
+		MedivailGS->SetPhase(ETurnPhase::Resolution);
+		UE_LOG(LogTemp, Warning, TEXT("New Phase is: %s"), *UEnum::GetValueAsString(MedivailGS->CurrentPhase));
+		ResolveCombat();
+		break;
+		
+	case ETurnPhase::Resolution:
+		UE_LOG(LogTemp, Warning, TEXT("Phase was: %s"), *UEnum::GetValueAsString(MedivailGS->CurrentPhase));
+		MedivailGS->SetPhase(ETurnPhase::CleanUp);
+		UE_LOG(LogTemp, Warning, TEXT("New Phase is: %s"), *UEnum::GetValueAsString(MedivailGS->CurrentPhase));
+		//clear deaths, refresh ink, check win con
+		break;
+
+	case ETurnPhase::CleanUp:
+		UE_LOG(LogTemp, Warning, TEXT("Phase was: %s"), *UEnum::GetValueAsString(MedivailGS->CurrentPhase));
+		MedivailGS->SetPhase(ETurnPhase::Placement);
+		UE_LOG(LogTemp, Warning, TEXT("New Phase is: %s"), *UEnum::GetValueAsString(MedivailGS->CurrentPhase));
+		break;
+	}
+}
+
+void AMedivailGameMode::DebugAdvancePhase() {
+	AdvancePhase();
+}

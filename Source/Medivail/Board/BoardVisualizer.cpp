@@ -11,10 +11,6 @@ ABoardVisualizer::ABoardVisualizer()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
-	GS = GetWorld()->GetGameState<AMedivailGameState>();
-
-
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +19,8 @@ void ABoardVisualizer::BeginPlay()
 	Super::BeginPlay();
 
 	BuildSlotLookup();
+
+	GS = GetWorld()->GetGameState<AMedivailGameState>();
 
 	if (ensure(GS)) {
 		GS->OnSlotOccupied.AddDynamic(this, &ABoardVisualizer::HandleSlotOccupied);
@@ -92,3 +90,7 @@ void ABoardVisualizer::HandleSlotCleared(bool bIsPlayerSide, int32 Row, int32 La
 	UE_LOG(LogTemp, Warning, TEXT("Slot Cleared: side %d, row %d, lane %d"), bIsPlayerSide, Row, Lane);
 }
 
+void ABoardVisualizer::HandlePhaseChanged(ETurnPhase NewPhase, ETurnPhase OldPhase) {
+	//this is for later use
+	return;
+}

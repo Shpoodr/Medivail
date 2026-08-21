@@ -13,6 +13,7 @@
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnSlotOccupied, bool, bIsPlayerSide, int32, Row, int32, Lane);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPhaseChanged, ETurnPhase, NewPhase, ETurnPhase, OldPhase);
 
 UCLASS()
 class MEDIVAIL_API AMedivailGameState : public AGameStateBase
@@ -42,6 +43,14 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Board")
 	FOnSlotOccupied OnSlotCleared;
+
+	UPROPERTY(BlueprintAssignable, Category = "Turn")
+	FOnPhaseChanged PhaseChanged;
+
+	UPROPERTY(BluePrintReadOnly, Category = "Turn")
+	ETurnPhase CurrentPhase = ETurnPhase::Placement;
+
+	void SetPhase(ETurnPhase NextPhase);
 
 protected:
 	virtual void BeginPlay() override;

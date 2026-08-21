@@ -131,3 +131,9 @@ TArray<FBoardSlot*> AMedivailGameState::GetOccupiedSlots(bool bPlayerSide) {
 	}
 	return OccupiedSlots;
 }
+
+void AMedivailGameState::SetPhase(ETurnPhase NewPhase) {
+	PhaseChanged.Broadcast(NewPhase, CurrentPhase);
+	CurrentPhase = NewPhase;
+	
+}

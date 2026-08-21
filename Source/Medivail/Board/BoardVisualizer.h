@@ -8,6 +8,7 @@
 #include "BoardVisualizer.generated.h"
 
 class ACreatureVisual;
+class BoardTypes;
 
 UCLASS()
 class MEDIVAIL_API ABoardVisualizer : public AActor
@@ -47,5 +48,8 @@ private:
 
 	UFUNCTION()
 	void HandleSlotCleared(bool bIsPlayerSide, int32 Row, int32 Lane);
+
+	UFUNCTION()
+	void HandlePhaseChanged(ETurnPhase NewPhase, ETurnPhase OldPhase);
 
 };
