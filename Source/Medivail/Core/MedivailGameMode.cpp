@@ -3,6 +3,7 @@
 
 #include "MedivailGameMode.h"
 #include "MedivailPlayerState.h"
+#include "MedivailPlayerController.h"
 #include "../Board/BoardSlotMarker.h"
 #include "../Board/BoardVisualizer.h"
 #include "../Creatures/CreatureDataAsset.h"
@@ -11,6 +12,7 @@
 AMedivailGameMode::AMedivailGameMode() {
 	GameStateClass = AMedivailGameState::StaticClass();
 	PlayerStateClass = AMedivailPlayerState::StaticClass();
+	PlayerControllerClass = AMedivailPlayerController::StaticClass();
 }
 	
 void AMedivailGameMode::BeginPlay() {
