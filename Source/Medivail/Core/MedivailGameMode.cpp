@@ -17,7 +17,7 @@ AMedivailGameMode::AMedivailGameMode() {
 	
 void AMedivailGameMode::BeginPlay() {
 	Super::BeginPlay();
-
+	UE_LOG(LogTemp, Warning, TEXT("PC is: %s"), *GetClass()->GetName());
 	MedivailGS = GetGameState<AMedivailGameState>();
 
 	UE_LOG(LogTemp, Warning, TEXT("MediVailGameMode BeginPlay"));

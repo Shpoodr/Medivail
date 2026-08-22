@@ -18,13 +18,13 @@ class MEDIVAIL_API AMedivailPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputMappingContext> GameplayContext;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputAction> ClickAction;
 
+protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
