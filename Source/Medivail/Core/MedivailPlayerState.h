@@ -9,11 +9,35 @@
 /**
  * 
  */
+
+class UCardDataAsset;
+
+USTRUCT(BlueprintType)
+struct FCardInstance {
+	GENERATED_BODY()
+
+	UPROPERTY()
+	TObjectPtr<UCardDataAsset>CardAsset;
+};
+
 UCLASS()
 class MEDIVAIL_API AMedivailPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	
+
 protected:
 	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	TArray<FCardInstance> Hand;
+
+	UPROPERTY()
+	TArray<FCardInstance> Deck;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Debug")
+	TArray<TObjectPtr<UCardDataAsset>> TestDeckCards;
+
+	void DrawCard();
+
 };

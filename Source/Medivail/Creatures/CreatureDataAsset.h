@@ -4,27 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "../Cards/CardDataAsset.h"
 #include "CreatureDataAsset.generated.h"
 
 /**
  * 
  */
+
 UCLASS(BlueprintType)
-class MEDIVAIL_API UCreatureDataAsset : public UDataAsset
+class MEDIVAIL_API UCreatureDataAsset : public UCardDataAsset
 {
 	GENERATED_BODY()
 
 public: 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Creature")
-	FText DisplayName;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Creature")
 	int32 BaseAttack = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Creature")
 	int32 BaseHealth = 1;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Creature")
-	TObjectPtr<UTexture2D> CardArt;
-	
 };
