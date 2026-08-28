@@ -14,6 +14,7 @@ void AMedivailPlayerState::BeginPlay() {
 			FCardInstance NewInstance;
 			NewInstance.CardAsset = Card;
 			Hand.Add(NewInstance);
+			OnHandChanged.Broadcast();
 			UE_LOG(LogTemp, Error, TEXT("Hand Size : %d"), Hand.Num());
 		}
 		else {
@@ -25,6 +26,7 @@ void AMedivailPlayerState::BeginPlay() {
 }
 
 void AMedivailPlayerState::DrawCard(){
+	OnHandChanged.Broadcast();
 	return;
 }
 

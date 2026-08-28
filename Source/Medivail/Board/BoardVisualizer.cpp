@@ -3,6 +3,7 @@
 #include "BoardVisualizer.h"
 #include "kismet/GameplayStatics.h"
 #include "../Core/MedivailGameState.h"
+#include "../Core/MedivailPlayerState.h"
 #include "../Creatures/CreatureVisual.h"
 #include "BoardSlotMarker.h"
 
@@ -21,6 +22,12 @@ void ABoardVisualizer::BeginPlay()
 	BuildSlotLookup();
 
 	GS = GetWorld()->GetGameState<AMedivailGameState>();
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController()) {\
+		if(!PC) UE_LOG(LogTemp, Error, TEXT("No PlayerController at visualizer BeginPlay"));
+		PS = PC->GetPlayerState<AMedivailPlayerState>();
+		PS->OnHandChanged.AddDynamic(this, &ABoardVisualizer::HandleHandChanged);
+		if (!PS)  UE_LOG(LogTemp, Error, TEXT("No PlayerState at visualizer BeginPlay"));
+	}
 
 	if (ensure(GS)) {
 		GS->OnSlotOccupied.AddDynamic(this, &ABoardVisualizer::HandleSlotOccupied);
@@ -70,7 +77,7 @@ void ABoardVisualizer::HandleSlotOccupied(bool bIsPlayerSide, int32 Row, int32 L
 	if (Position) {
 		ACreatureVisual* Visual = GetWorld()->SpawnActor<ACreatureVisual>(CreatureVisualClass, *Position, FRotator::ZeroRotator);
 		if (Visual) {
-			Visual->InitializeVisual(GS->GetSlot(bIsPlayerSide, Row, Lane)->Occupant, Row, Lane, bIsPlayerSide);
+			Visual->InitializeBoardVisual(GS->GetSlot(bIsPlayerSide, Row, Lane)->Occupant, Row, Lane, bIsPlayerSide);
 			SpawnedVisuals.Add(Key, Visual);
 		}
 	}
@@ -94,3 +101,12 @@ void ABoardVisualizer::HandlePhaseChanged(ETurnPhase NewPhase, ETurnPhase OldPha
 	//this is for later use
 	return;
 }
+
+void ABoardVisualizer::HandleHandChanged(){
+
+}
+
+void ABoardVisualizer::UpdateHandLayout(){
+
+}
+

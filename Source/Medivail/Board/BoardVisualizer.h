@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "../Core/MedivailPlayerState.h"
 #include "../Core/MedivailGameState.h"
 #include "BoardVisualizer.generated.h"
+
 
 class ACreatureVisual;
 class BoardTypes;
@@ -38,6 +40,9 @@ protected:
 	UPROPERTY()
 	TObjectPtr<AMedivailGameState> GS;
 
+	UPROPERTY()
+	TObjectPtr<AMedivailPlayerState> PS;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -51,5 +56,10 @@ private:
 
 	UFUNCTION()
 	void HandlePhaseChanged(ETurnPhase NewPhase, ETurnPhase OldPhase);
+
+	UFUNCTION()
+	void HandleHandChanged();
+
+	void UpdateHandLayout();
 
 };

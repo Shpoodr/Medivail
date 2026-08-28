@@ -20,11 +20,17 @@ struct FCardInstance {
 	TObjectPtr<UCardDataAsset>CardAsset;
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHandChanged);
+
 UCLASS()
 class MEDIVAIL_API AMedivailPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(BlueprintAssignable, Category = "Hand")
+	FOnHandChanged OnHandChanged;
+
 
 protected:
 	virtual void BeginPlay() override;

@@ -31,8 +31,12 @@ void ACreatureVisual::Tick(float DeltaTime)
 
 }
 
-void ACreatureVisual::InitializeVisual(UCreatureDataAsset* InCreature, int32 InRow, int32 InLane, bool bPlayerSide) {
+void ACreatureVisual::InitializeBoardVisual(UCreatureDataAsset* InCreature, int32 InRow, int32 InLane, bool bPlayerSide) {
 	CreatureData->CardArt = InCreature->CardArt;
+}
+
+void ACreatureVisual::InitializeHandVisual() {
+
 }
 
 
